@@ -7,7 +7,7 @@ import reactor.core.publisher.Flux;
 import java.io.IOException;
 
 @Log4j2
-public class WebClientStockClient
+public class WebClientStockClient implements StockClient
 {
     private WebClient webClient;
 
@@ -16,8 +16,10 @@ public class WebClientStockClient
         this.webClient = webClient;
     }
 
+    @Override
     public Flux<StockPrice> pricesFor( String symbol )
     {
+        log.info( "WebClient stock client" );
         return webClient.get()
                 .uri( "http://localhost:8080/stocks/{symbol}", symbol )
                 .retrieve()

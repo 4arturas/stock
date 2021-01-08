@@ -1,5 +1,6 @@
 package com.art.demo.stockui;
 
+import com.art.demo.stockclient.StockClient;
 import com.art.demo.stockclient.StockPrice;
 import com.art.demo.stockclient.WebClientStockClient;
 import javafx.application.Platform;
@@ -17,12 +18,12 @@ public class ChartController
 {
     @FXML
     public LineChart<String, Double> chart;
-    private WebClientStockClient webClientStockClient;
+    private StockClient stockClient;
 
 
-    public ChartController( WebClientStockClient webClientStockClient )
+    public ChartController( StockClient stockClient )
     {
-        this.webClientStockClient = webClientStockClient;
+        this.stockClient = stockClient;
     }
 
     @FXML
@@ -30,11 +31,11 @@ public class ChartController
     {
         String symbol1 = "SYMBOL1";
         final PriceSubscriber priceSubscriber1 = new PriceSubscriber( symbol1 );
-        webClientStockClient.pricesFor( symbol1 ).subscribe( priceSubscriber1 );
+        stockClient.pricesFor( symbol1 ).subscribe( priceSubscriber1 );
 
         String symbol2 = "SYMBOL2";
         final PriceSubscriber priceSubscriber2 = new PriceSubscriber( symbol2 );
-        webClientStockClient.pricesFor( symbol2 ).subscribe( priceSubscriber2 );
+        stockClient.pricesFor( symbol2 ).subscribe( priceSubscriber2 );
 
 
         ObservableList<XYChart.Series<String, Double>> data = FXCollections.observableArrayList();
